@@ -1,0 +1,262 @@
+* {
+  margin: 0;
+  padding: 0%;
+  font-family: "montserrat";
+}
+body {
+  background-color: #cdd1d7;
+}
+main {
+  /* background-color: lightskyblue; */
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.heading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+.heading span {
+  position: absolute;
+  left: 50%;
+  bottom: 7%;
+  transform: translate(-50%, -50%);
+}
+.heading h1 {
+  font-size: 36px;
+  font-weight: 500;
+}
+form {
+  background-color: #fff;
+  width: 75%;
+  display: flex;
+  max-width: 580px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.square {
+  height: 10px;
+  width: 10px;
+  border-radius: 2px;
+  background-color: lightblue;
+  width: 0;
+  transition: 0.3s ease-in-out all;
+  transform: translatex(-30px);
+  margin-left: 8px;
+}
+form input {
+  width: 75%;
+  padding: 10px 14px;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  color: #111;
+  padding-inline-start: 3px;
+  background-color: transparent;
+}
+form button {
+  height: 100%;
+  max-width: 100px;
+  border: none;
+  outline: none;
+  background-color: lightblue;
+  padding: 10px 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+form:focus-within .square {
+  background-color: lightblue;
+  transform: translatex(0px);
+  width: 10px;
+}
+.todos {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.todos .lists {
+  width: 100%;
+  max-width: 580px;
+  margin-bottom: 80px;
+}
+.addtext {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.todos .lists li {
+  display: flex;
+  justify-content: space-between;
+  background-color: lightblue;
+  padding: 10px 13px;
+  align-items: center;
+  border-radius: 5px;
+  transition: box-shadow, transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin: 10px auto;
+  width:85%;
+  
+  
+}
+.todos .lists li p {
+  font-size: 15px;
+  cursor: context-menu;
+  text-transform: capitalize;
+}
+.todos .lists li:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transform: scale(1.02);
+}
+.lists .icons button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+.lists .icons button {
+  margin: 0 5px;
+}
+.edit {
+  color: rgb(1, 165, 1);
+  transform: scale(1.5);
+  cursor: pointer;
+  transition: 0.1s ease-in;
+  transition-property: transform, color;
+}
+.edit:hover {
+  transform: scale(1.6);
+  color: green;
+}
+.edit:active {
+  color: rgb(1, 165, 1);
+  transform: scale(1.5);
+}
+.delete {
+  color: crimson;
+  transform: scale(1.4);
+  cursor: pointer;
+  transition: 0.1s ease-in;
+  transition-property: transform, color;
+}
+.delete:hover {
+  transform: scale(1.5);
+  color: red;
+}
+.delete:active {
+  transform: scale(1.4);
+  color: crimson;
+}
+footer {
+  background-color: lightblue;
+  width: 100%;
+  position: fixed;
+  bottom: 0%;
+}
+.footercont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+footer button {
+  padding: 3px 8px;
+  background-color: crimson;
+  /* border: 1.5px solid #DC2769; */
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  border: none;
+  transition: 0.3s ease background-color;
+}
+footer button:hover {
+  background-color: rgb(167, 12, 43);
+}
+
+.form button:hover .blue {
+  animation: 1s ease btn_overlay;
+  opacity: 0.4;
+}
+
+.popup {
+  border-radius: 4px;
+}
+.popupPara {
+  padding: 5px 10px;
+  font-size: 13px;
+}
+.popup.del {
+  background-color: crimson;
+  color: white;
+}
+.popup.add {
+  background-color: lightgreen;
+  /* color: rgb(122, 122, 122); */
+}
+
+@keyframes btn_overlay {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (max-width: 650px) {
+  .heading {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  form {
+    width: 90%;
+  }
+  form input {
+    width: 68%;
+    padding: 8px;
+  }
+  form button {
+    padding: 12px 10px;
+    height: 100%;
+  }
+}
+
+@keyframes remove {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(70px);
+    opacity: 0;
+  }
+}
+
+@keyframes movepopup {
+  0% {
+    bottom: 0%;
+  }
+  60% {
+    bottom: 7%;
+  }
+}

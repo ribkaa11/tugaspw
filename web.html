@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>  
+<body>
+    <main>
+      <div class="heading">
+        <h1>Todo List</h1>
+      </div>
+      <form class="form" id="form">
+        <div class="square"></div>
+        <input
+          type="text"
+          name="input"
+          placeholder="Write the Todo"
+          autocomplete="off"
+          id="input"
+          class="input"
+        />
+        <button id="todobtn" type="submit">Add Todo</button>
+      </form>
+      <div class="todos">
+        <ul class="lists"></ul>
+      </div>
+      <footer>
+        <div class="footercont">
+          <div class="footleft">
+            <p>Total number of Todo <span id="total">0</span></p>
+            <p style="font-size: 12px; margin-top: 5px">enjoy your life :)</p>
+          </div>
+          <div class="footright">
+            <button class="clearall" id="clearall">Clear All</button>
+          </div>
+        </div>
+      </footer>
+    </main>
+    <script>
+        // Grabbing Elements
+
+const popupParaEl = document.querySelector(".popupPara");
+const formEl = document.getElementById("form");
+const inputEl = document.getElementById("input");
+const listsEl = document.querySelector(".lists");
+const clearallEl = document.querySelector(".clearall");
+const totalList = document.getElementById("total");
+const spanContainer = document.querySelector(".heading");
+const addtext = document.querySelector(".addtext");
+
+// Creating Variables
+
+let editFlag = false;
+let editValue = "";
+let editEl = "";
+let liEditFlag = false;
+let editMove;
+let local = [];
+let editid = "";
+
+// Events
+
+formEl.addEventListener("submit", (e) => {
+  todo(e);
+});
+
+function todo(e) {
+  e.preventDefault();
+
+  if (inputEl.value && !editFlag) {
+    addTodo();
+  } else if (inputEl.value && editFlag) {
+    editEl.innerHTML = inputEl.value;
+    editFlag = false;
+    inputEl.value = "";
+    editMove.style.background = "lightblue";
+    popup("Todo has been Updated !", "add");
+  } else if (!inputEl.value) {
+    popup("Todo Cannot be a empty value", "del");
+  }
+}
+
+function addTodo() {
+  if (inputEl.value.match(/^\s*$/g)) {
+    inputEl.value = "";
+    popup("Todo Cannot be a empty value", "del");
+  } else if (!inputEl.value.match(/^\s*$/g)) {
+    const id = new Date().getTime().toString().slice(8, 12);
+
+    const attr = document.createAttribute("data-id");
+    attr.value = id;
+
+    const li = document.createElement("li");
+    const para = document.createElement("p");
+    li.append(para);
+
+    const icons = document.createElement("div");
+    icons.classList.add("icons");
+    li.appendChild(icons);
+
+    const editIcon = document.createElement("button");
+    icons.appendChild(editIcon);
+    editIcon.innerHTML = `<ion-icon name="create"></ion-icon>`;
+    editIcon.classList.add("edit");
+
+    const delIcon = document.createElement("button");
+    icons.appendChild(delIcon);
+    delIcon.innerHTML = `<ion-icon name="trash"></ion-icon>`;
+    delIcon.classList.add("delete");
+    para.innerHTML = inputEl.value;
+    inputEl.value = "";
+
+    listsEl.appendChild(li);
+    li.setAttributeNode(attr);
+    let val = para.textContent;
+
+    let listlen = listsEl.children.length;
+    totalList.innerHTML = listlen;
+
+    popup("Todo has been added !", "add");
+
+    delIcon.addEventListener("click", (e) => {
+      let removeEl = e.currentTarget.parentElement.parentElement;
+      removeEl.style.cssText = `
+       animation: remove .3s ease-in;
+       `;
+      popup("Todo has been Deleted !", "del");
+      removeEl.addEventListener("animationend", () => {
+        removeEl.remove();
+
+        let listlen = listsEl.children.length;
+
+        totalList.innerHTML = listlen;
+        const id = removeEl.dataset.id;
+      });
+    });
+    editIcon.addEventListener("click", (e) => {
+      editFlag = true;
+      editEl = e.currentTarget.parentElement.previousSibling;
+      console.log(editEl);
+      inputEl.value = editEl.textContent;
+      editMove = e.currentTarget.parentElement.parentElement;
+      editMove.style.background = "rgb(146, 195, 211)";
+      let element = e.currentTarget.parentElement.parentElement;
+      editid = element.dataset.id;
+    });
+  }
+}
+
+clearallEl.addEventListener("click", () => {
+  listsEl.innerHTML = "";
+ 
+  totalList.innerHTML = 0;
+});
+
+function popup(text, action) {
+  const span = document.createElement("span");
+  const para = document.createElement("p");
+  para.innerHTML = text;
+
+  span.classList.add("popup");
+  para.classList.add("popupPara");
+
+  span.appendChild(para);
+
+  span.classList.add(action);
+
+  spanContainer.appendChild(span);
+  span.style.cssText = `
+  
+  animation: movepopup .8s ease-in;
+  `;
+  span.addEventListener("animationend", () => {
+    span.remove();
+  });
+}
+        
+    </script>
+  </body>
+</html>
+
